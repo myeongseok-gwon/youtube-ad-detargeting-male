@@ -27,14 +27,9 @@ function App() {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Febreze Ads Campaign Detargeting
+      <Typography variant="h4" gutterBottom mb={4}>
+        Febreze Ads Campaign Detargeting (Male)
       </Typography>
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="subtitle1">
-          Out of 26,861 total videos, 12,315 videos are candidates for Detargeting.
-        </Typography>
-      </Box>
       <VideoTable rows={data} />
     </Container>
   );

@@ -13,7 +13,6 @@ export default function VideoTable({ rows }) {
           width="380"
           height="220"
           src={`https://www.youtube.com/embed/${params.value}`}
-          frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
@@ -85,17 +84,6 @@ export default function VideoTable({ rows }) {
               { field: 'gender_male', sort: 'desc' },
               { field: 'impressions', sort: 'desc' }
             ]
-          },
-          filter: {
-            filterModel: {
-              items: [
-                {
-                  field: 'gender_male',
-                  operator: '>=',
-                  value: 0.4
-                }
-              ]
-            }
           }
         }}
         disableRowSelectionOnClick

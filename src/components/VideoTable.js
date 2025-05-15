@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridFilterInputValue } from '@mui/x-data-grid';
 
 export default function VideoTable({ rows }) {
   const columns = useMemo(() => [
@@ -13,6 +13,7 @@ export default function VideoTable({ rows }) {
           width="380"
           height="220"
           src={`https://www.youtube.com/embed/${params.value}`}
+          frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
@@ -23,6 +24,7 @@ export default function VideoTable({ rows }) {
       field: 'gender_male', 
       headerName: 'Detargeting Score', 
       width: 200,
+      filterable: true,
       valueFormatter: ({ value }) => value.toFixed(2),
       sortingOrder: ['desc', 'asc'],
       sortComparator: (v1, v2, param1, param2) => {
@@ -37,26 +39,29 @@ export default function VideoTable({ rows }) {
           label: 'Greater than or equal to',
           value: '>=',
           getApplyFilterFn: (filterItem) => {
-            if (!filterItem.value) {
+            if (filterItem.value === undefined || filterItem.value === null || filterItem.value === '') {
               return null;
             }
             return (params) => {
               return Number(params.value) >= Number(filterItem.value);
             };
           },
+          InputComponent: GridFilterInputValue,
+          InputComponentProps: { type: 'number' }
         },
-        ,
         {
-          label: 'Less than',
-          value: '<',
+          label: 'Less than or equal to',
+          value: '<=',
           getApplyFilterFn: (filterItem) => {
-            if (!filterItem.value) {
+            if (filterItem.value === undefined || filterItem.value === null || filterItem.value === '') {
               return null;
             }
             return (params) => {
               return Number(params.value) < Number(filterItem.value);
             };
           },
+          InputComponent: GridFilterInputValue,
+          InputComponentProps: { type: 'number' }
         },
       ],
       type: 'number'
@@ -97,6 +102,17 @@ export default function VideoTable({ rows }) {
               { field: 'gender_male', sort: 'desc' },
               { field: 'impressions', sort: 'desc' }
             ]
+          },
+          filter: {
+            filterModel: {
+              items: [
+                {
+                  field: 'gender_male',
+                  operator: '>=',
+                  value: 0.4
+                }
+              ]
+            }
           }
         }}
         disableRowSelectionOnClick

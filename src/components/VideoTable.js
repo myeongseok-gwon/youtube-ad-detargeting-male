@@ -56,8 +56,9 @@ export default function VideoTable({ rows }) {
             if (filterItem.value === undefined || filterItem.value === null || filterItem.value === '') {
               return null;
             }
+            const round2 = v => Math.round(Number(v) * 100) / 100;
             return (params) => {
-              return Number(params.value) < Number(filterItem.value);
+              return round2(params.value) <= round2(filterItem.value);
             };
           },
           InputComponent: GridFilterInputValue,
